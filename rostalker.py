@@ -33,40 +33,102 @@
 #
 # Revision $Id$
 
-## Simple talker demo that published std_msgs/Strings messages
-## to the 'chatter' topic
-
 from flask import Flask
+import time
+from time import sleep
 import rospy
 from std_msgs.msg import String
+import threading
 
 app = Flask(__name__)
 
+threading.Thread(target=lambda: rospy.init_node('test_node',disable_signals=True)).start()
+pub = rospy.Publisher('test_pub', String, queue_size=1)
+
 @app.route('/')
 def index():
-	return 'Hello world'
+	return 'Empty Request'
 
 @app.route('/forward')
 def forward():
-	print("Forward!")
-	return 'Alexabot moved forward!'
-    	try:
-        	talker()
-    	except rospy.ROSInterruptException:
-        	pass
+	outMsg = "w"
+	rospy.loginfo(outMsg)
+	pub.publisher(outMsg)
+	print "w sent"
+	return 'Forward'
 
-def talker():
-    	pub = rospy.Publisher('chatter', Char, queue_size=10)
-    	rospy.init_node('talker', anonymous=True)
-    	rate = rospy.Rate(10) # 10hz
-	count = 0;
-    	while count<5:
-		count += 1
-        	hello_str = 'w'
-        	rospy.loginfo(hello_str)
-        	pub.publish(hello_str)
-        	rate.sleep()
+@app.route('/left')
+def left():
+	outMsg = "a"
+	rospy.loginfo(outMsg)
+	pub.publisher(outMsg)
+	print "a sent"
+	return 'Left'
+
+@app.route('/right')
+def right():
+	outMsg = "d"
+	rospy.loginfo(outMsg)
+	pub.publisher(outMsg)
+	print "d sent"
+	return 'Right'
+
+@app.route('/backward')
+def forward():
+	outMsg = "s"
+	rospy.loginfo(outMsg)
+	pub.publisher(outMsg)
+	print "s sent"
+	return 'Backward'
+
+@app.route('/rightturn')
+def rightturn():
+	outMsg = "r"
+	rospy.loginfo(outMsg)
+	pub.publisher(outMsg)
+	print "r sent"
+	return 'Right Turn'
+
+@app.route('/leftturn')
+def leftturn():
+	outMsg = "l"
+	rospy.loginfo(outMsg)
+	pub.publisher(outMsg)
+	print "l sent"
+	return 'Left Turn'
+
+@app.route('/stop')
+def forward():
+	outMsg = "z"
+	rospy.loginfo(outMsg)
+	pub.publisher(outMsg)
+	print "z sent"
+	return 'Stop'
+
+@app.route('/on')
+def forward():
+	outMsg = "o"
+	rospy.loginfo(outMsg)
+	pub.publisher(outMsg)
+	print "o sent"
+	return 'On'
+
+@app.route('/off')
+def off():
+	outMsg = "f"
+	rospy.loginfo(outMsg)
+	pub.publisher(outMsg)
+	print "f sent"
+	return 'Off'
 	
+@app.route('/manual')
+def forward():
+	outMsg = "m"
+	rospy.loginfo(outMsg)
+	pub.publisher(outMsg)
+	print "m sent"
+	return 'Manual Mode'
+
 if __name__ == '__main__':
 app.run(debug=True, host='0.0.0.0')
 
