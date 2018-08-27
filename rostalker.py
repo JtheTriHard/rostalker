@@ -39,7 +39,7 @@ def right():
 	return 'Right'
 
 @app.route('/backward')
-def forward():
+def backward():
 	outMsg = "s"
 	rospy.loginfo(outMsg)
 	pub.publisher(outMsg)
@@ -63,7 +63,7 @@ def leftturn():
 	return 'Left Turn'
 
 @app.route('/stop')
-def forward():
+def stop():
 	outMsg = "z"
 	rospy.loginfo(outMsg)
 	pub.publisher(outMsg)
@@ -71,7 +71,7 @@ def forward():
 	return 'Stop'
 
 @app.route('/on')
-def forward():
+def on():
 	outMsg = "o"
 	rospy.loginfo(outMsg)
 	pub.publisher(outMsg)
@@ -87,7 +87,7 @@ def off():
 	return 'Off'
 	
 @app.route('/manual')
-def forward():
+def manual():
 	outMsg = "m"
 	rospy.loginfo(outMsg)
 	pub.publisher(outMsg)
