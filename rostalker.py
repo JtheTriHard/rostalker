@@ -92,7 +92,15 @@ def manual():
 	rospy.loginfo(outMsg)
 	pub.publisher(outMsg)
 	print "m sent"
-	return 'Manual Mode'
+	return 'Manual Mode On'
+
+@app.route('/manualoff')
+def manualoff():
+	outMsg = "u"
+	rospy.loginfo(outMsg)
+	pub.publisher(outMsg)
+	print "u sent"
+	return 'Manual Mode Off'
 
 @app.route('/kitchen')
 def kitchen():
